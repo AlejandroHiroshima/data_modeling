@@ -35,7 +35,7 @@ You have this json data, convert it into three tables: Hospital, Department and 
 
 **Initial naive conceptual ERD**
 
-<img src = "../assets/initial_conceptual_model_ex1.png" width=300>
+<img src = "../assets/initial_conceptual_model_ex1.png" width=500>
 
 **Initial tables**
 
@@ -46,15 +46,15 @@ Hospital
 |1          |sjukhusstock|drottninggatan3 |
 |2          |löwenströmsk|löwetvägen1     | # lagt till själv
 
-department
+Department
 
 |department_id|name        |
 |-------------|------------|
 |1            |Kardiologi  |
 |2            |Neurologi   |
-|3            |Paliativ avd| # lagt yill själv
+|3            |Paliativ avd| # lagt till själv
 
-doctor
+Doctor
 
 |doctor_id    |name                  |
 |-------------|----------------------|
@@ -65,7 +65,7 @@ doctor
 
 refined with bridge tables to reflect many-to-many relatonships
 
-<img src = "../assets/conceptual_hospital_ex0_1.png" width=300>
+<img src = "../assets/conceptual_hospital_ex0_1.png" width=500>
 
 HospitalDepartment
 
@@ -84,7 +84,7 @@ HospitalDoctor # gjort själv
 |------------------|-----------|---------|
 |1                 |1          |1        |
 |2                 |1          |2        |
-|3                 |1          |3        | # gjort själv
+|3                 |1          |3        | 
 |4                 |2          |4        | # gjort själv
 |5                 |1          |4        | # gjort själv
 
@@ -101,7 +101,6 @@ DepartmentDoctor # gjort själv
 
 
 Test a join
-
 Want information on Sjukhusstock and its departments
 - hospital_department can join with department_id and can join with department_id on department table and hospital_id on hospital_table
 - query name from hospital table and name from department table
