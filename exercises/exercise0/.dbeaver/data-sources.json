@@ -1,0 +1,35 @@
+{
+	"folders": {},
+	"connections": {
+		"duckdb_jdbc-1956b064e4b-1585e47a3fef8263": {
+			"provider": "generic",
+			"driver": "duckdb_jdbc",
+			"name": "hospital.duckdb",
+			"save-password": true,
+			"configuration": {
+				"database": "C:\\Users\\alexa\\Documents\\data_modeling\\data_modeling\\exercises\\exercise0\\hospital.duckdb",
+				"url": "jdbc:duckdb:C:\\Users\\alexa\\Documents\\data_modeling\\data_modeling\\exercises\\exercise0\\hospital.duckdb",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": true,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400
+		}
+	}
+}

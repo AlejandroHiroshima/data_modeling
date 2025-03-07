@@ -106,3 +106,51 @@ Want information on Sjukhusstock and its departments
 - query name from hospital table and name from department table
 
 TODO: left for reader create this SQL query
+
+---
+
+## 2. Library Bookly
+A library called Bookly keeps track of books and members who borrow them. Each book has a title, author, and ISBN number. Each member has a membership ID, name, and contact information. A member can borrow multiple books, but each book can be borrowed by only one member at a time.
+
+a) Identify the entities and attributes for each entity.
+
+b) Determine the relationship between member and books.
+
+c) Draw a conceptual ERD using crow foots notation.
+
+### Solution
+
+a) Entities: 
+
+- **Book**
+  - ISBN # natural key
+  - name
+  - title
+  - author
+
+>[!NOTE]
+> ISBN is a unique number for a book, which can be used as a ``primary key`` this will make it into a ``natural key``
+
+- **Member**
+  - membership_id # natural key
+  - first_name
+  - last_name
+  - phone
+  - address
+  - email
+
+
+b)
+- A member can have zero or several Borrowings
+- A Borrowing can be made by one and only one Member
+- A Borrowing is linked to one and only one Book
+- A Book can be in zero or more Borrowings
+
+c)
+
+Initial conceptual ERD
+<img src = "../assets/bookly.png" width=500>
+<br>
+
+Replaced many to many with a bridge table (composite entity)
+<img src = "../assets/bookly1.png" width=500>
