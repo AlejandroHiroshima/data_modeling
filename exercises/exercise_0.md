@@ -139,6 +139,12 @@ a) Entities:
   - address
   - email
 
+**Borrowing**
+  - borrowing_id
+  - ISBN
+  - membership_id
+  - return_date
+  - borrow_date
 
 b)
 - A member can have zero or several Borrowings
@@ -154,3 +160,47 @@ Initial conceptual ERD
 
 Replaced many to many with a bridge table (composite entity)
 <img src = "../assets/bookly1.png" width=500>
+
+
+## 3. Car rental
+Conceptual ERD to words.
+
+This is an ERD conceptual diagram that a database designer and the business stakeholders agreed upon in a car rental company called Carent.
+<img src = "../assets/ERD3.png" width=500>
+
+a) Describe the entities in this conceptual ERD.
+
+b) Write out the relationship labels.
+
+c) Describe the relationships between the entities (one-to-many, one-to-one and many-to-many).
+
+d) Define the relationship statement for example: "A Customer can have one or more Rentals".
+
+### Solutions
+
+a) 
+- Customer, is a person that can make rentals for cars.
+- Car, is the cars that can be rented by the customer. 
+- Rental (composite entity), is the transaction between Car and Customer
+
+
+
+
+
+Alternative to put in the descriptions into the entities directly in conceptual ERD:
+<img src = "../assets/carrent.png" width=500>
+
+b) see image above
+
+c) 
+  - Customer to rental (one-to-many)
+  - Rental to Customer (many-to-one)
+  - Rental to Car (many-to-one)
+  - Car to Rental (one-to-many)
+
+d)
+
+- Customer makes one or more Rentals
+- Each Rental is connected to one Customer
+- Each Rental is for one Car
+- Each Car can be in several Rentals

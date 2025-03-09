@@ -1,1 +1,1 @@
-{"resources":{"Scripts/Script.sql":{"default-datasource":"duckdb_jdbc-1956b064e4b-1585e47a3fef8263"}}}
+{"resources":{"Scripts/Create_table.sql":{"default-datasource":"duckdb_jdbc-1956b064e4b-1585e47a3fef8263","default-catalog":"hospital"},"Scripts/Querys.sql":{"default-datasource":"duckdb_jdbc-1956b064e4b-1585e47a3fef8263","default-catalog":"hospital"},"Scripts/insert_values.sql":{"default-datasource":"duckdb_jdbc-1956b064e4b-1585e47a3fef8263","default-catalog":"hospital"}}}
