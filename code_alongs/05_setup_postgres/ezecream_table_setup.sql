@@ -18,5 +18,20 @@ CREATE TABLE IF NOT EXISTS Orders (
     FOREIGN KEY (customer_id) REFERENCES Customer (customer_id)
 );
 
+CREATE TABLE IF NOT EXISTS Product (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    price DOUBLE PRECISION NOT NULL
+);
 
--- TODO fyll i resten av de fysiska diagrammen
+CREATE TABLE IF NOT EXISTS OrderLine (
+    orderline_id SERIAL PRIMARY KEY,
+    order_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    quantity INTEGER,
+    FOREIGN KEY (order_id) REFERENCES Orders (order_id),
+    FOREIGN KEY (product_id) REFERENCES Product (product_id)
+);
+
+-- OBS! Ordningen spelar roll, Product måste vara ovanför OrderLine, eftersom OrderLine refererar till Product
+

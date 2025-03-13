@@ -105,7 +105,7 @@ Want information on Sjukhusstock and its departments
 - hospital_department can join with department_id and can join with department_id on department table and hospital_id on hospital_table
 - query name from hospital table and name from department table
 
-TODO: left for reader create this SQL query
+TODO: left for reader create this SQL query = DONE!
 
 ---
 
@@ -204,3 +204,156 @@ d)
 - Each Rental is connected to one Customer
 - Each Rental is for one Car
 - Each Car can be in several Rentals
+
+## 4. Online store
+You are designing a database for an online store that sells multiple products. Customers can place multiple orders, and each order contains multiple products.
+
+a) Identify entities and their relationships
+
+b) Create a conceptual ERD with cardinalities
+
+### Solution:
+
+a) Entities:
+  - Customer
+  - Order
+  - OrderLine -  (Composite entity)
+  - Product
+
+  Relationships:
+  - Customer places one or many Orders
+  - Orders belong to one Customer
+  - Orders contain one or many Orderlines
+  - Orderlines belong to one Order
+  - Orderline belongs has one Product
+  - Products can be in many Orderlines
+
+b)
+  <img src = "../assets/shop.png" width=500>
+
+
+## 5. University management system
+A university needs a system to manage students, courses, and professors.
+
+each student can enroll in multiple courses.
+each course is taught by one professor.
+a teacher can teach multiple courses.
+a) Identify entities and their relationships
+
+b) Come up with possible attributes for the entities
+
+c) Draw conceptual ERD with cardinalities
+
+d) Define business rules (e.g. a student can enroll in max 4 courses)
+
+### Solution
+
+a) 
+Entities:
+  - Student
+  - Enrollment
+  - Course
+  - Professor
+
+Relationships:
+  - Student has Enrollments
+  - Each Enrollment is made up of one Student
+  - Each Enrollment is in one Course
+  - A Course can be in several Enrollments
+  - Each Course has one Professor
+  - A Professor can hold several courses
+
+
+b)
+Student attributes:
+  - Student ID (Primary)
+  - Name
+  - Address
+  - Contact info
+
+Enrollment attributes:
+  - Student_id (foreign key)
+  - Course_id (foreign key)
+
+Course attributes:
+  - course_id (Primary)
+  - name
+  - start_date
+  - end_date
+  - professor_id (foreign key)
+
+Professor attributes:
+  - professor_id (primary)
+  - name
+  - email
+
+  c)
+
+  <img src = "../assets/university.png" width=500>
+
+  d)
+
+
+## 6. Onshop
+An e-commerce platform Onshop manages customers, orders, and products.
+
+a customer can place multiple orders.
+each order contains multiple products.
+a product can belong to multiple categories.
+a) Identify key entities and their attributes (e.g., customer_name, order_date)
+
+b) Sketch the conceptual ERD.
+
+c) Define business rules
+
+### Solution
+
+a)
+Entities:
+  - Customer
+  - OrderLine
+  - Order
+  - Product
+  - ProductCategory
+  - Category
+
+Customer attributes:
+  - customer_id (primary)
+  - name
+  - address
+  - email
+  - phone_number
+
+OrderLine attributes:
+  - orderline_id (primary)
+  - order_id (foreign)
+  - product_id (foreign key)
+  - quantity
+  - price (priset vid ordertillfället, eftersom pris kan ändras)
+
+Order attributes:
+  - order_id (primary)
+  - customer_id (foreign)
+  - order_date
+  - total_sum  
+
+Product attributes:
+  - product_id (primary)
+  - name
+  - description
+  - price
+  - stock_quantity
+  
+ProductCategory attribues:
+  - product_id (foreign)
+  - category_id (foreign)
+
+Category attributes:
+  - category_id (primary)
+  - name
+  - description
+
+b)
+
+drew a logical model instead:
+<img src = "../assets/onshop_logical.png" width=500>

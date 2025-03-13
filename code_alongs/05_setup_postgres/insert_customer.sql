@@ -38,7 +38,12 @@ VALUES
         '1 Valhalla Way'
     );
 
---TODO: find out how to delete row with customer_id 50
+
+    
+
+
+
+
 
 SELECT * FROM ezecream_05.customer;
-    
+--TODO: find out how to delete row with customer_id 50
