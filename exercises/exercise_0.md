@@ -357,3 +357,122 @@ b)
 
 drew a logical model instead:
 <img src = "../assets/onshop_logical.png" width=500>
+
+## 7. Theoretical questions
+
+a) 
+### What is a conceptual data model, and why is it important?
+A conceptual data model is a high-level representation of the data and its relationships within a system. It focuses on the business requirements and defines the entities, attributes, and relationships without considering technical details like database implementation.
+
+Importance:
+
+- Provides a clear understanding of the data requirements for stakeholders.
+- Serves as a blueprint for creating logical and physical data models.
+- Helps identify key entities and their relationships early in the design process.
+
+b) 
+### Storing age in a database, is that a good idea, why?
+Storing age in a database is generally not a good idea because age is a dynamic value that changes over time. Instead, it is better to store the date of birth (DOB) and calculate the age when needed.
+
+Reasons:
+
+- Data accuracy: Age becomes outdated unless updated regularly.
+- Efficiency: Storing DOB allows for more flexible queries (e.g., calculating age ranges).
+- Consistency: DOB is a static value, ensuring data integrity.
+
+c) 
+### What are the three types of data structures, and how do they differ?
+The three main types of data structures are:
+
+- Linear Data Structures:
+Data is organized sequentially.
+Examples: Arrays, Linked Lists, Stacks, Queues.
+Difference: Easy to traverse but less efficient for complex relationships.
+- Hierarchical Data Structures:
+Data is organized in a tree-like structure.
+Examples: Trees, Binary Search Trees, Heaps.
+Difference: Efficient for representing parent-child relationships.
+- Graph Data Structures:
+Data is organized as nodes (vertices) connected by edges.
+Examples: Social networks, road maps.
+Difference: Best for representing complex relationships like many-to-many.
+
+d) 
+### Give examples of how each data structure is used in real-world applications
+- Linear Data Structures:
+  - Arrays: Storing a list of items like product IDs in an e-commerce platform.
+  - Queues: Managing tasks in a printer queue.
+- Hierarchical Data Structures:
+  - Trees: Representing file systems (folders and subfolders).
+  - Heaps: Implementing priority queues in scheduling systems.
+- Graph Data Structures:
+  - Social Networks: Representing users as nodes and friendships as edges.
+  - Navigation Systems: Representing cities as nodes and roads as edges.
+
+e) 
+### What is cardinality in data modeling, and why is it important?
+Cardinality refers to the number of instances of one entity that can be associated with instances of another entity in a relationship.
+
+Types:
+
+- One-to-One (1:1): A person has one passport.
+- One-to-Many (1:N): A customer can place multiple orders.
+- Many-to-Many (M:N): Students can enroll in multiple courses, and courses can have multiple students.
+
+Importance:
+
+Ensures accurate representation of relationships.
+Helps in designing efficient database schemas.
+Prevents data redundancy and ensures data integrity.
+
+f)
+### What are the different steps of data modeling?
+- Conceptual Data Modeling:
+  - Identify entities, attributes, and relationships.
+  - Focus on business requirements.
+- Logical Data Modeling:
+  - Define the structure of the data (e.g., tables, columns, keys).
+  - Normalize the data to reduce redundancy.
+- Physical Data Modeling:
+  - Implement the logical model in a specific database system.
+  - Optimize for performance (e.g., indexing, partitioning).
+
+g) 
+### What factors influence the choice between using an RDBMS and NoSQL?
+- Data Structure:
+  - RDBMS: Best for structured data with predefined schemas.
+   -NoSQL: Suitable for unstructured or semi-structured data.
+- Scalability:
+  - RDBMS: Vertical scaling (adding more resources to a single server).
+  - NoSQL: Horizontal scaling (adding more servers).
+- Flexibility:
+  - RDBMS: Rigid schema, ideal for consistent data.
+  - NoSQL: Flexible schema, ideal for dynamic or evolving data.
+- Use Case:
+  - RDBMS: Financial systems, inventory management.
+  - NoSQL: Social media, IoT, real-time analytics.
+- Consistency vs. Availability:
+  - RDBMS: Prioritizes consistency (ACID compliance).
+  - NoSQL: Prioritizes availability and partition tolerance (CAP theorem).
+
+
+Glossary
+
+- RDBMS	Relational Database Management System; uses tables to store structured data.
+- Relational Model	A model that organizes data into tables with rows and columns.
+- Conceptual Model	High-level representation of data focusing on business requirements.
+- Logical Model	Detailed structure of data, including tables, attributes, and relationships.
+- Physical Model	Implementation of the logical model in a database system.
+- ERD	Entity-Relationship Diagram; visual representation of entities and relationships.
+- Data Modeling	Process of defining and organizing data structures and relationships.
+- Data Integrity	Ensuring data is accurate, consistent, and reliable.
+- Data Consistency	Ensuring data remains uniform across the database.
+- Field	A single piece of data in a table (e.g., a column).
+- Attribute	A property or characteristic of an entity (e.g., name, age).
+- Data Type	Defines the type of data (e.g., integer, string).
+- Tuple	A single row in a table.
+- Data Redundancy	Duplication of data, which can lead to inconsistencies.
+- Transaction	A sequence of operations performed as a single logical unit of work.
+- Cardinality	Defines the number of relationships between entities.
+- One-to-One	Each instance of an entity is related to one instance of another entity.
+- One-to-Many	One instance of an entity is related to many instances of another entity.
