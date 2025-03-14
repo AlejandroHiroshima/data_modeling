@@ -19,8 +19,25 @@ e) Create a few tables manually, insert given data plus some more, and try to ma
 
 ### Solution
 
+a) 
+<img src = "../../assets/logical_hospital.png" width=500>
 
+b)
+Hospital: hospital_id (PRIMARY KEY)
+Department: department_id (PRIMARY KEY)
+Doctor: doctor_id (PRIMARY KEY)
+HospitalDepartment: hospital_id (FOREIGN KEY), department_id (FOREIGN KEY)
+composite primary key = (hospital_id, department_id)
+DepartmentDoctor: department_id (FOREIGN KEY), doctor_id (FOREIGN KEY)
+composite primary key = (department_id, doctor_id)
+HospitalDoctor: hospital_id (FOREIGN KEY), doctor_id (FOREIGN KEY)
+composite primary key = (hospital_id, doctor_id)
 
+c)
+Parent entities = Doctor, Hospital, Department
+Child entities = DepartmentDoctor, HospitalDepartment, HospitalDoctor
+
+Child entities rely on parent entities, all, or part of their attributes come from the parent entity
 
 ## 1. Implement hospital example in postgres
 a) Now implement your physical model from e) and add the data from task 0e). Make sure that you have correctly specified different domain constraints.
