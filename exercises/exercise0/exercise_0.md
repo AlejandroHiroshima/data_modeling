@@ -61,7 +61,7 @@ Doctor
 |1            |Dr. Abra Abrahamsson  |
 |2            |Dr. Erika Eriksson    |
 |3            |Dr. Sven Svensson     |
-|4            |Dr. Alex Alexandersson|
+|4            |Dr. Alex Alexandersson| # lagt till själv
 
 refined with bridge tables to reflect many-to-many relatonships
 

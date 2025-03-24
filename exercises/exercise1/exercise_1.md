@@ -39,6 +39,12 @@ Child entities = DepartmentDoctor, HospitalDepartment, HospitalDoctor
 
 Child entities rely on parent entities, all, or part of their attributes come from the parent entity
 
+d)
+
+<img src = "../../assets/Hospital_physical_model.png" width=500>
+
+e) TODO (Gjordes i exercise 0)
+
 ## 1. Implement hospital example in postgres
 a) Now implement your physical model from e) and add the data from task 0e). Make sure that you have correctly specified different domain constraints.
 
