@@ -26,7 +26,17 @@
 - A school has several programs, a program can be taught in several schools (many to many relationship handled by junctiontable School_Program)
 - A School can have zero or several consultants, a consultant can work in zero or several schools (many to many handled by junctiontable Consult_School)
 - A Program has several courses, a course can be in several programs (many to many handled by junctiontable Program_Course)
-- A Course is taught by maximum one Consultant, a consultant can be teaching zero or several courses
+- A Course is taught by one or many Consultants, a consultant can be teaching zero or several courses (many-to-many handled by junctiontable Course_Consult)
 - A Student can be in one or several courses (courses not part of a program), a course can have one or many students (many to many handled by junctiontable Student_Course)
-- A Course is taught by zero or one teacher (if zero, it's taught by a Consultant instead), a Teacher can teach zero or several courses
+- A Course is taught by one or many teachers (if zero, it's taught by a Consultant instead), a Teacher can teach zero or several courses (many-to-many handled by Course_Teacher)
 - Person_info has a one-to-one relationship with Teacher, Ecucation_manager and Student
+- A Teacher works at one and only one school, a School has zero or many teachers
+- An Education manager can work at one and only one School, a School has zero or several Education managers
+- An Education manager has one and only one streetaddress, a streetaddress can have zero or many education managers
+- A Teacher have one and only one streetaddress, a streetaddress can have zero or several teachers
+
+## d)
+
+<img src = "../../assets/logical_yrkesco.png" width=700>
+
+## e)
