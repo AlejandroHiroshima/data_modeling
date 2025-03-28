@@ -1,0 +1,10 @@
+Table Country {
+  country_id INTEGER [primary key]
+  country_name VARCHAR(100) [not null]
+}
+
+Table City {
+  city_id INTEGER [primary key]
+  city_name VARCHAR(100) [not null]
+  country_id INTEGER [not null, ref: > Country.country_id]
+}

@@ -34,9 +34,13 @@
 - An Education manager can work at one and only one School, a School has zero or several Education managers
 - An Education manager has one and only one streetaddress, a streetaddress can have zero or many education managers
 - A Teacher have one and only one streetaddress, a streetaddress can have zero or several teachers
+- A School can ben be in one-or-many cities, a City can only have one yrkesco School (Business rule)
 
 ## d)
 
 <img src = "../../assets/logical_yrkesco.png" width=700>
 
 ## e)
+
+<img src = "../../assets/physical_yrkesco.png" width=700>
+or see dmbl file
