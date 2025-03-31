@@ -9,7 +9,7 @@
 ### f) Argumentera för att modellen du skapar uppnår 3NF
 
 ## Solutions:
-### a) Done
+## a) Done
 ## b)
 <img src = "../../assets/conceptual_yrkesco6.png" width=700>
 
@@ -43,4 +43,9 @@
 ## e)
 
 <img src = "../../assets/physical_yrkesco.png" width=700>
-or see dmbl file
+or see dmbl file called uppgift_0_e.dbml
+
+## f)
+
+- Alla tabeller är i 1NF, eftersom det inte finns delbara eller upprepande grupper.
+- Alla tabeller är i 2NF, eftersom alla non-primary attribut är beroende av hela
