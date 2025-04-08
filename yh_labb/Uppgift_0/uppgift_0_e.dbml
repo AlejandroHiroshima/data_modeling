@@ -16,15 +16,15 @@ Table Street_address {
 }
 
 Table City_Street {
+  Primary Key (city_id, street_address_id)
   city_id INTEGER [not null, ref: > City.city_id]
   street_address_id INTEGER [not null, ref: > Street_address.street_address_id]
-  Primary Key (city_id, street_address_id)
 }
 
 Table School {
   school_id INTEGER [primary key]
-  school_name VARCHAR(100) [not null]
-  street_address_id INTEGER [not null, ref: > Street_address.street_address_id]
+  school_name VARCHAR(100)
+  street_address_id INTEGER [ref: > Street_address.street_address_id]
 }
 
 Table Program {
@@ -34,30 +34,33 @@ Table Program {
 }
 
 Table School_Program {
-  school_program_id INTEGER [primary key]
+  primary key (school_id, program_id)
   school_id INTEGER [not null, ref: > School.school_id]
   program_id INTEGER [not null, ref: > Program.program_id]
 }
 
 Table Class {
-  class_id INTEGER [primary key]
-  class_name VARCHAR(100) [not null]
-  program_id INTEGER [not null, ref: > Program.program_id]
-  school_id INTEGER [not null, ref: > School.school_id]
-  education_manager_id INTEGER [ref: > Education_manager.education_manager_id]
-  start_date DATE
-  end_date DATE
+    class_id INTEGER [primary key]
+    class_name_id INTEGER [ref: > Class_Name.class_name_id]
+    program_id INTEGER [ref: > Program.program_id]
+    education_manager_id INTEGER [ref: > Education_manager.education_manager_id]
+    start_date DATE
+    end_date DATE
+}
+
+Table Class_Name {
+    class_name_id INTEGER [primary key]
+    class_name VARCHAR(40) [not null]
 }
 
 Table Education_manager {
   education_manager_id INTEGER [primary key]
-  first_name VARCHAR(100) [not null]
-  last_name VARCHAR(100) [not null]
-  email VARCHAR(100) [not null]
-  school_id INTEGER [not null, ref: > School.school_id]
+  first_name VARCHAR(100)
+  last_name VARCHAR(100)
+  email VARCHAR(100)
   personal_info_id INTEGER [ref: > Personal_info.personal_info_id]
   street_address_id INTEGER [ref: > Street_address.street_address_id]
-  is_active BOOLEAN [default: true]
+  is_active BOOLEAN
 }
 
 Table Personal_info {
@@ -69,14 +72,15 @@ Table Personal_info {
 Table Course {
   course_id INTEGER [primary key]
   course_name VARCHAR(100) [not null]
-  course_code VARCHAR(20) [not null, unique]
   credits INTEGER [not null]
   description TEXT
-  is_active BOOLEAN [default: true]
+  start_date DATE
+  end_date DATE
+  is_standalone BOOLEAN
 }
 
 Table Program_Course {
-  program_course_id INTEGER [primary key]
+  primary key (program_id, course_id)
   program_id INTEGER [not null, ref: > Program.program_id]
   course_id INTEGER [not null, ref: > Course.course_id]
 }
@@ -87,13 +91,13 @@ Table Teacher {
   last_name VARCHAR(100) [not null]
   email VARCHAR(100) [not null]
   hire_date DATE
-  is_active BOOLEAN [default: true]
+  is_active BOOLEAN 
   personal_info_id INTEGER [ref: > Personal_info.personal_info_id]
   street_address_id INTEGER [ref: > Street_address.street_address_id]
 }
 
 Table Course_Teacher {
-  course_teacher_id INTEGER [primary key]
+  primary key (course_id, teacher_id) 
   course_id INTEGER [not null, ref: > Course.course_id]
   teacher_id INTEGER [not null, ref: > Teacher.teacher_id]
 }
@@ -107,11 +111,11 @@ Table Consult {
   consult_id INTEGER [primary key]
   organization_number VARCHAR(50) [not null, ref: > Company.organization_number]
   hourly_rate DECIMAL(10, 2) [not null]
-  is_active BOOLEAN [default: true]
+  is_active BOOLEAN
 }
 
 Table Course_Consult {
-  course_consult_id INTEGER [primary key]
+  primary key (course_id, consult_id)
   course_id INTEGER [not null, ref: > Course.course_id]
   consult_id INTEGER [not null, ref: > Consult.consult_id]
 }
@@ -127,17 +131,10 @@ Table Student {
 }
 
 Table Student_Course {
-  student_course_id INTEGER [primary key]
+  primary key (student_id, course_id)
   student_id INTEGER [not null, ref: > Student.student_id]
   course_id INTEGER [not null, ref: > Course.course_id]
   enrollment_date DATE
   completion_date DATE
 }
 
-Table Consult_School {
-  consult_school_id INTEGER [primary key]
-  consult_id INTEGER [not null, ref: > Consult.consult_id]
-  school_id INTEGER [not null, ref: > School.school_id]
-  start_date DATE
-  end_date DATE
-}

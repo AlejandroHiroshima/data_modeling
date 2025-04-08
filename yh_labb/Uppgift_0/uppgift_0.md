@@ -17,14 +17,10 @@
 - Student has a street address, a street address can have several students.
 - A street address can be in several Cities, a City has several street addresses (Many to many relationship handled with junctiontable City_Street)
 - A City belongs to one and only one Country, a Country has several cities (A city can be in several Countries (the City name) but in this case we only do Sweden)
-- A Student attends one and only one School at a time (business rule), a School has several Students
 - A Student attends one and only one class (Business rule), a Class has several Students
 - A Class belongs to one and only one Program, a Program has several Classes
 - A School can have multiple street addresses, a street address has only one school (YrkesCo don't have multiple schools on one street address)
-- A School has one or many Education managers, an education manager works in only one school (they don't work in both Stockholm and Gothenburg)
-- A School has at least one class, a class belongs to only one school
 - A school has several programs, a program can be taught in several schools (many to many relationship handled by junctiontable School_Program)
-- A School can have zero or several consultants, a consultant can work in zero or several schools (many to many handled by junctiontable Consult_School)
 - A Program has several courses, a course can be in several programs (many to many handled by junctiontable Program_Course)
 - A Course is taught by one or many Consultants, a consultant can be teaching zero or several courses (many-to-many handled by junctiontable Course_Consult)
 - A Student can be in one or several courses (courses not part of a program), a course can have one or many students (many to many handled by junctiontable Student_Course)
@@ -34,7 +30,8 @@
 - An Education manager can work at one and only one School, a School has zero or several Education managers
 - An Education manager has one and only one streetaddress, a streetaddress can have zero or many education managers
 - A Teacher have one and only one streetaddress, a streetaddress can have zero or several teachers
-- A School can ben be in one-or-many cities, a City can only have one yrkesco School (Business rule)
+- A Consult works at one and only one company, a Company can have many Consultants 
+
 
 ## d)
 
@@ -42,10 +39,11 @@
 
 ## e)
 
-<img src = "../../assets/physical_yrkesco.png" width=700>
-or see dmbl file called uppgift_0_e.dbml
+
+Se filen som heter  uppgift_0_e.dbml
 
 ## f)
 
 - Alla tabeller är i 1NF, eftersom det inte finns delbara eller upprepande grupper.
-- Alla tabeller är i 2NF, eftersom alla non-primary attribut är beroende av hela
+- Alla tabeller är i 2NF, eftersom alla non-primary attribut är beroende av hela primärnyckeln och inte bara delar av den
+- Alla tabeller är i 3NF eftersom inga av non-primary nycklarna är transitativt beroende av varandra
