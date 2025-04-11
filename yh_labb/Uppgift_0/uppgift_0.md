@@ -31,6 +31,7 @@
 - An Education manager has one and only one streetaddress, a streetaddress can have zero or many education managers
 - A Teacher have one and only one streetaddress, a streetaddress can have zero or several teachers
 - A Consult works at one and only one company, a Company can have many Consultants 
+- Teacher has one and only one set of Contact info. A set of Contact info can only belong to one Teacher
 
 
 ## d)

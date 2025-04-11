@@ -1,0 +1,114 @@
+-- Hitta studenters fulla namn, email och personnummer
+SELECT 
+    s.first_name || ' ' || s.last_name AS student_name,
+    ci.email AS Email,
+    pi.personal_number AS Personnummer
+FROM 
+    yrkesco.Student s
+LEFT JOIN 
+    yrkesco.Personal_Info pi ON s.personal_info_id = pi.personal_info_id
+LEFT JOIN 
+    yrkesco.Contact_Info ci ON s.contact_info_id = ci.contact_info_id;
+
+
+-- Hitta alla kurser för en specifik Student "Alice"
+SELECT 
+    s.first_name || ' ' || s.last_name AS student_name,
+    co.course_name
+FROM 
+    yrkesco.Student s
+JOIN 
+    yrkesco.Student_Course sc ON s.student_id = sc.student_id
+JOIN 
+    yrkesco.Course co ON sc.course_id = co.course_id
+WHERE 
+    s.first_name = 'Alice' AND s.last_name = 'Andersson';
+
+-- Hitta antal studenter per klass
+SELECT 
+    cn.class_name,
+    COUNT(s.student_id) AS student_count
+FROM 
+    yrkesco.Classes cl
+JOIN 
+    yrkesco.Class_Name cn ON cl.class_name_id = cn.class_name_id
+JOIN 
+    yrkesco.Student s ON cl.class_id = s.class_id
+GROUP BY 
+    cn.class_name
+ORDER BY 
+    student_count DESC;
+
+-- Program och dess kurser
+SELECT 
+    p.program_name,
+    c.course_name
+FROM 
+    yrkesco.Programs p
+JOIN 
+    yrkesco.Program_Course pc ON p.program_id = pc.program_id
+JOIN 
+    yrkesco.Course c ON pc.course_id = c.course_id
+ORDER BY 
+    p.program_name, c.course_name;
+
+-- Lärare och vilka kurser de undervisar
+SELECT 
+    t.first_name || ' ' || t.last_name AS teacher_name,
+    co.course_name
+FROM 
+    yrkesco.Teacher t
+JOIN 
+    yrkesco.Course_Teacher ct ON t.teacher_id = ct.teacher_id
+JOIN 
+    yrkesco.Course co ON ct.course_id = co.course_id;
+
+-- Vilka program som finns på de olika skolorna
+SELECT 
+    sch.school_name,
+    p.program_name
+FROM 
+    yrkesco.School sch
+JOIN 
+    yrkesco.School_Program sp ON sch.school_id = sp.school_id
+JOIN 
+    yrkesco.Programs p ON sp.program_id = p.program_id
+ORDER BY 
+    sch.school_name, p.program_name;
+
+-- Tar fram studenters för/efternamn, personnummer och email på dom som läser ensamstående kurs
+SELECT 
+    s.first_name, 
+    s.last_name, 
+    pi.personal_number, 
+    ci.email
+FROM 
+    yrkesco.Student s
+JOIN 
+    yrkesco.Personal_Info pi ON s.personal_info_id = pi.personal_info_id
+JOIN 
+    yrkesco.Contact_Info ci ON s.contact_info_id = ci.contact_info_id
+JOIN 
+    yrkesco.Student_Course sc ON s.student_id = sc.student_id
+JOIN 
+    yrkesco.Course c ON sc.course_id = c.course_id
+WHERE 
+    c.is_standalone = TRUE
+GROUP BY 
+    s.student_id, s.first_name, s.last_name, pi.personal_number, ci.email;
+
+
+
+SELECT table_name
+FROM information_schema.tables
+WHERE table_name = 'student';
+
+SELECT * FROM yrkesco.Student;
+
+SELECT * FROM yrkesco.personal_info;
+
+SELECT * FROM yrkesco.Consult;
+
+SELECT * FROM yrkesco.Student;
+SELECT * FROM yrkesco.Personal_Info;
+SELECT * FROM yrkesco.Contact_Info;

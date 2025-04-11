@@ -1,448 +1,222 @@
--- Grundläggande data
-INSERT INTO Country (country_name) VALUES
-    ('Sweden');
+SET search_path TO yrkesco;
 
-INSERT INTO City (city_name, country_id) VALUES
-    ('Stockholm', 1),
-    ('Gothenburg', 1);
+TRUNCATE TABLE Country, City, Street_address, City_Street, School, 
+             Personal_info, Contact_Info, Programs, School_Program, 
+             Education_manager, Class_Name, Classes, Course, Program_Course, 
+             Teacher, Course_Teacher, Company, Consult, Course_Consult, 
+             Student, Student_Course CASCADE;
 
-INSERT INTO Street_address (street_address, postal_code) VALUES
-    ('Drottninggatan 1', '11151'), -- Stockholm
-    ('Avenyn 10', '41136'),       -- Gothenburg
-    ('Kungsgatan 5', '11143'),    -- Stockholm
-    ('Vasagatan 12', '41124'),    -- Gothenburg
-    ('Birger Jarlsgatan 8', '11145'), -- Stockholm
-    ('Kungsportsavenyn 20', '41136'), -- Gothenburg
-    ('Storgatan 15', '11152'),    -- Stockholm
-    ('Linnégatan 25', '41135'),   -- Gothenburg
-    ('Odengatan 30', '11153'),    -- Stockholm
-    ('Haga Nygata 5', '41123'),   -- Gothenburg
-    ('Sveavägen 50', '11134'),    -- Stockholm
-    ('Östra Hamngatan 16', '41109'), -- Gothenburg
-    ('Hornsgatan 20', '11149'),   -- Stockholm
-    ('Järntorget 7', '41105'),    -- Gothenburg
-    ('Torsgatan 18', '11122'),    -- Stockholm
-    ('Kyrkogatan 3', '41115'),    -- Gothenburg
-    ('Sankt Eriksgatan 45', '11154'), -- Stockholm
-    ('Magasinsgatan 8', '41118'), -- Gothenburg
-    ('Fleminggatan 12', '11157'), -- Stockholm
-    ('Norra Hamngatan 10', '41106'); -- Gothenburg
+INSERT INTO Country (country_id, country_name) VALUES
+    (1, 'Sweden');
+
+INSERT INTO City (city_id, city_name, country_id) VALUES
+    (1, 'Stockholm', 1),
+    (2, 'Gothenburg', 1);
+
+INSERT INTO Street_address (street_address_id, street_address, postal_code) VALUES
+    (1, 'Drottninggatan 1', '11151'),
+    (2, 'Avenyn 10', '41136'),
+    (3, 'Kungsgatan 5', '11143'),
+    (4, 'Vasagatan 12', '41124'),
+    (5, 'Birger Jarlsgatan 8', '11145');
 
 INSERT INTO City_Street (city_id, street_address_id) VALUES
-    (1, 1), -- Stockholm, Drottninggatan 1
-    (1, 3), -- Stockholm, Kungsgatan 5
-    (1, 5), -- Stockholm, Birger Jarlsgatan 8
-    (1, 7), -- Stockholm, Storgatan 15
-    (1, 9), -- Stockholm, Odengatan 30
-    (1, 11), -- Stockholm, Sveavägen 50
-    (1, 13), -- Stockholm, Hornsgatan 20
-    (1, 15), -- Stockholm, Torsgatan 18
-    (1, 17), -- Stockholm, Sankt Eriksgatan 45
-    (1, 19), -- Stockholm, Fleminggatan 12
-    (2, 2), -- Gothenburg, Avenyn 10
-    (2, 4), -- Gothenburg, Vasagatan 12
-    (2, 6), -- Gothenburg, Kungsportsavenyn 20
-    (2, 8), -- Gothenburg, Linnégatan 25
-    (2, 10), -- Gothenburg, Haga Nygata 5
-    (2, 12), -- Gothenburg, Östra Hamngatan 16
-    (2, 14), -- Gothenburg, Järntorget 7
-    (2, 16), -- Gothenburg, Kyrkogatan 3
-    (2, 18), -- Gothenburg, Magasinsgatan 8
-    (2, 20); -- Gothenburg, Norra Hamngatan 10
+    (1, 1),
+    (2, 2),
+    (1, 3),
+    (2, 4),
+    (1, 5);
 
--- Uppdaterad: Bara två skolor, en i Stockholm och en i Göteborg
-INSERT INTO School (school_name, street_address_id) VALUES
-    ('YrkesCo Stockholm', 1), -- Drottninggatan 1, Stockholm
-    ('YrkesCo Gothenburg', 2); -- Avenyn 10, Gothenburg
+INSERT INTO School (school_id, school_name, street_address_id) VALUES
+    (1, 'YrkesCo Stockholm', 1),
+    (2, 'YrkesCo Gothenburg', 2);
 
--- Separera personlig information och kontaktinformation
-INSERT INTO Personal_info (personal_number) VALUES
-    -- Education Managers
-    ('19900101-1234'), -- Anna Andersson
-    ('19851212-5678'), -- Björn Karlsson
-    ('19770315-7890'), -- Cecilia Lind
-    ('19950505-4321'), -- David Eriksson
-    ('19800101-8765'), -- Elin Johansson
-    
-    -- Teachers (Fast anställda)
-    ('19820315-2345'), -- Anders Alm
-    ('19871122-3456'), -- Beatrice Bergström
-    ('19900315-6789'), -- Erik Ekström
-    ('19870101-7890'), -- Frida Forsberg
-    ('19891212-0123'), -- Isak Isaksson
-    ('19910315-1234'), -- Jenny Johansson
-    
-    -- Teachers (Konsulter)
-    ('19900909-4567'), -- Carl Carlsson
-    ('19851212-5678'), -- Diana Dahl
-    ('19820315-8901'), -- Gustav Gunnarsson
-    ('19850505-9012'), -- Hanna Hedlund
-    
-    -- Students
-    ('20000101-1111'), -- Alice Andersson
-    ('20000202-2222'), -- Bob Berg
-    ('20000303-3333'), -- Cecilia Carlsson
-    ('20000404-4444'), -- David Dahl
-    ('20000505-5555'), -- Emma Ek
-    ('20000606-6666'), -- Fredrik Fransson
-    ('20000707-7777'), -- Greta Gustafsson
-    ('20000808-8888'), -- Hugo Hansson
-    ('20000909-9999'), -- Ida Isaksson
-    ('20001010-1010'), -- Johan Johansson
-    ('20001111-1112'), -- Karin Karlsson
-    ('20001212-1212'), -- Lars Lind
-    ('20010101-1313'), -- Maria Magnusson
-    ('20010202-1414'); -- Nils Nilsson
-
-INSERT INTO Contact_Info (email, phone_number) VALUES
-    -- Education Managers
-    ('anna.andersson@yrkesco.se', '0701234567'), -- Anna Andersson
-    ('bjorn.karlsson@yrkesco.se', '0707654321'), -- Björn Karlsson
-    ('cecilia.lind@yrkesco.se', '0709876543'), -- Cecilia Lind
-    ('david.eriksson@yrkesco.se', '0705432167'), -- David Eriksson
-    ('elin.johansson@yrkesco.se', '0708765432'), -- Elin Johansson
-    
-    -- Teachers (Fast anställda)
-    ('anders.alm@yrkesco.se', '0702345678'), -- Anders Alm
-    ('beatrice.bergstrom@yrkesco.se', '0703456789'), -- Beatrice Bergström
-    ('erik.ekstrom@yrkesco.se', '0706789012'), -- Erik Ekström
-    ('frida.forsberg@yrkesco.se', '0707890123'), -- Frida Forsberg
-    ('isak.isaksson@yrkesco.se', '0700123456'), -- Isak Isaksson
-    ('jenny.johansson@yrkesco.se', '0701234568'), -- Jenny Johansson
-    
-    -- Teachers (Konsulter)
-    ('carl.carlsson@konsult.se', '0704567890'), -- Carl Carlsson
-    ('diana.dahl@konsult.se', '0705678901'), -- Diana Dahl
-    ('gustav.gunnarsson@konsult.se', '0708901234'), -- Gustav Gunnarsson
-    ('hanna.hedlund@konsult.se', '0709012345'), -- Hanna Hedlund
-    
-    -- Students
-    ('alice.andersson@student.se', '0701111111'), -- Alice Andersson
-    ('bob.berg@student.se', '0702222222'), -- Bob Berg
-    ('cecilia.carlsson@student.se', '0703333333'), -- Cecilia Carlsson
-    ('david.dahl@student.se', '0704444444'), -- David Dahl
-    ('emma.ek@student.se', '0705555555'), -- Emma Ek
-    ('fredrik.fransson@student.se', '0706666666'), -- Fredrik Fransson
-    ('greta.gustafsson@student.se', '0707777777'), -- Greta Gustafsson
-    ('hugo.hansson@student.se', '0708888888'), -- Hugo Hansson
-    ('ida.isaksson@student.se', '0709999999'), -- Ida Isaksson
-    ('johan.johansson@student.se', '0701010101'), -- Johan Johansson
-    ('karin.karlsson@student.se', '0701112111'), -- Karin Karlsson
-    ('lars.lind@student.se', '0701212121'), -- Lars Lind
-    ('maria.magnusson@student.se', '0701313131'), -- Maria Magnusson
-    ('nils.nilsson@student.se', '0701414141'), -- Nils Nilsson
-    
-    -- Företag
-    ('info@techsolutions.se', '08-123456'), -- Tech Solutions AB
-    ('contact@dataexperts.se', '08-654321'), -- Data Experts Ltd
-    ('hello@aiinnovators.se', '031-123456'), -- AI Innovators
-    ('support@cloudservices.se', '031-654321'); -- Cloud Services Inc
-
-INSERT INTO Programs (program_name, description) VALUES
-    ('Data Engineering', 'Learn to design and manage data pipelines'),
-    ('AI Development', 'Master artificial intelligence technologies'),
-    ('Cybersecurity', 'Protect systems and networks from threats'),
-    ('Cloud Computing', 'Learn cloud infrastructure and services'),
-    ('Web Development', 'Build modern web applications'),
-    ('Game Development', 'Create games and simulations');
+INSERT INTO Programs (program_id, program_name, description) VALUES
+    (1, 'Data Engineering', 'Learn to design and manage data pipelines'),
+    (2, 'AI Development', 'Master artificial intelligence technologies'),
+    (3, 'Cybersecurity', 'Protect systems and networks from threats'),
+    (4, 'Web Development', 'Build modern web applications'),
+    (5, 'Data Science', 'Analyze and interpret complex data'),
+    (6, 'Cloud Computing', 'Learn to build and manage cloud-based systems'),
+    (7, 'Business Analytics', 'Use data to drive business decisions'),
+    (8, 'Game Development', 'Design and develop video games'),
+    (9, 'Digital Marketing', 'Master online marketing strategies and tools');
 
 INSERT INTO School_Program (school_id, program_id) VALUES
-    (1, 1), -- YrkesCo Stockholm offers Data Engineering
-    (1, 2), -- YrkesCo Stockholm offers AI Development
-    (1, 3), -- YrkesCo Stockholm offers Cybersecurity
-    (2, 4), -- YrkesCo Gothenburg offers Cloud Computing
-    (2, 5), -- YrkesCo Gothenburg offers Web Development
-    (2, 6); -- YrkesCo Gothenburg offers Game Development
+    (1, 1),
+    (1, 2),
+    (2, 3),
+    (2, 4),
+    (1, 5), 
+    (1, 6), 
+    (2, 7), 
+    (2, 8), 
+    (1, 9),
+    ( 2, 5), 
+    (1, 7), 
+    (2, 6);
 
-INSERT INTO Education_manager (first_name, last_name, personal_info_id, contact_info_id, street_address_id, is_active) VALUES
-    ('Anna', 'Andersson', 1, 1, 1, TRUE),
-    ('Björn', 'Karlsson', 2, 2, 2, TRUE),
-    ('Cecilia', 'Lind', 3, 3, 3, TRUE),
-    ('David', 'Eriksson', 4, 4, 4, TRUE),
-    ('Elin', 'Johansson', 5, 5, 5, TRUE);
+INSERT INTO Personal_Info (personal_info_id, personal_number) VALUES
+    (1, '19900101-1234'),
+    (2, '19851212-5678'),
+    (3, '19770315-7890'),
+    (4, '19950505-4321'),
+    (5, '19800101-8765'),
+    (6, '19920315-6789'),
+    (7, '19870315-2345'),
+    (8, '19910505-7890'),
+    (9, '19891212-4567');
 
-INSERT INTO Class_Name (class_name) VALUES
-    ('DE2024'), -- Data Engineering 2024
-    ('AI2024'), -- AI Development 2024
-    ('CS2024'), -- Cybersecurity 2024
-    ('CC2024'), -- Cloud Computing 2024
-    ('WD2024'), -- Web Development 2024
-    ('GD2024'); -- Game Development 2024
+INSERT INTO Contact_Info (contact_info_id, email, phone_number) VALUES
+    (1, 'anna.andersson@yrkesco.se', '0701234567'),
+    (2, 'bjorn.karlsson@yrkesco.se', '0707654321'),
+    (3, 'cecilia.lind@yrkesco.se', '0709876543'),
+    (4, 'david.eriksson@yrkesco.se', '0705432167'),
+    (5, 'elin.johansson@yrkesco.se', '0708765432'),
+    (6, 'frida.forsberg@yrkesco.se', '0706543210'),
+    (7, 'gustav.gunnarsson@yrkesco.se', '0704321567'),
+    (8, 'hanna.hedlund@yrkesco.se', '0703216547'),
+    (9, 'isak.isaksson@yrkesco.se', '0709871234');
 
--- Uppdaterad: Varje program har 3 klasser (omgångar) och varje utbildningsledare har hand om 3 klasser
-INSERT INTO Classes (class_name_id, program_id, education_manager_id, start_date, end_date) VALUES
-    -- Program 1: Data Engineering (3 omgångar)
-    (1, 1, 1, '2024-01-15', '2024-12-15'), -- DE2024, omgång 1, Anna
-    (1, 1, 1, '2024-06-01', '2025-06-01'), -- DE2024, omgång 2, Anna
-    (1, 1, 1, '2025-01-15', '2025-12-15'), -- DE2024, omgång 3, Anna
-    
-    -- Program 2: AI Development (3 omgångar)
-    (2, 2, 2, '2024-02-01', '2024-12-01'), -- AI2024, omgång 1, Björn
-    (2, 2, 2, '2024-08-01', '2025-06-01'), -- AI2024, omgång 2, Björn
-    (2, 2, 2, '2025-02-01', '2025-12-01'), -- AI2024, omgång 3, Björn
-    
-    -- Program 3: Cybersecurity (3 omgångar)
-    (3, 3, 3, '2024-03-01', '2024-12-01'), -- CS2024, omgång 1, Cecilia
-    (3, 3, 3, '2024-09-01', '2025-06-01'), -- CS2024, omgång 2, Cecilia
-    (3, 3, 3, '2025-03-01', '2025-12-01'), -- CS2024, omgång 3, Cecilia
-    
-    -- Program 4: Cloud Computing (3 omgångar)
-    (4, 4, 4, '2024-04-01', '2024-12-01'), -- CC2024, omgång 1, David
-    (4, 4, 4, '2024-10-01', '2025-06-01'), -- CC2024, omgång 2, David
-    (4, 4, 4, '2025-04-01', '2025-12-01'), -- CC2024, omgång 3, David
-    
-    -- Program 5: Web Development (3 omgångar)
-    (5, 5, 5, '2024-05-01', '2024-12-01'), -- WD2024, omgång 1, Elin
-    (5, 5, 5, '2024-11-01', '2025-06-01'), -- WD2024, omgång 2, Elin
-    (5, 5, 5, '2025-05-01', '2025-12-01'), -- WD2024, omgång 3, Elin
-    
-    -- Program 6: Game Development (3 omgångar)
-    (6, 6, 1, '2024-06-01', '2024-12-01'), -- GD2024, omgång 1, Anna (har redan 3 klasser)
-    (6, 6, 2, '2024-12-01', '2025-06-01'), -- GD2024, omgång 2, Björn (har redan 3 klasser)
-    (6, 6, 3, '2025-06-01', '2025-12-01'); -- GD2024, omgång 3, Cecilia (har redan 3 klasser)
+INSERT INTO Education_manager (education_manager_id, first_name, last_name, personal_info_id, contact_info_id, street_address_id, is_active) VALUES
+    (1, 'Anna', 'Andersson', 1, 1, 1, TRUE),
+    (2, 'Björn', 'Karlsson', 2, 2, 2, TRUE),
+    (3, 'Cecilia', 'Lind', 3, 3, 3, TRUE),
+    (4, 'David', 'Eriksson', 4, 4, 1, TRUE),
+    (5, 'Elin', 'Johansson', 5, 5, 2, TRUE),
+    (6, 'Frida', 'Forsberg', 6, 6, 3, TRUE);
 
--- Uppdaterad: Lagt till kurskod
-INSERT INTO Course (course_name, course_code, credits, description, start_date, end_date, is_standalone) VALUES
-    -- Program 1: Data Engineering
-    ('Programming Basics', 'PRG101', 7.5, 'Introduction to programming concepts.', '2025-01-15', '2025-03-15', FALSE),
-    ('Advanced Programming', 'PRG201', 10, 'Deep dive into advanced programming techniques.', '2025-03-16', '2025-06-15', FALSE),
-    ('Data Structures', 'DAT101', 12.5, 'Learn about data structures and algorithms.', '2025-06-16', '2025-09-15', FALSE),
+INSERT INTO Class_Name (class_name_id, class_name) VALUES
+    (1, 'DE2023'),
+    (2, 'DE2024'),
+    (3, 'DE2025'),
+    (4, 'AI2023'),
+    (5, 'AI2024'),
+    (6, 'AI2025'),
+    (7, 'CS2023'),
+    (8, 'CS2024'),
+    (9, 'CS2025');
 
-    -- Program 2: AI Development
-    ('Database Fundamentals', 'DB101', 7.5, 'Introduction to database design and SQL.', '2025-01-15', '2025-03-15', FALSE),
-    ('Database Optimization', 'DB201', 10, 'Learn how to optimize database performance.', '2025-03-16', '2025-06-15', FALSE),
-    ('Big Data Analytics', 'BDA101', 12.5, 'Analyze large datasets using modern tools.', '2025-06-16', '2025-09-15', FALSE),
+INSERT INTO Classes (class_id, class_name_id, program_id, education_manager_id, start_date, end_date) VALUES
+    (1, 1, 1, 1, '2023-01-15', '2023-12-15'),
+    (2, 2, 1, 1, '2024-01-15', '2024-12-15'),
+    (3, 3, 1, 1, '2025-01-15', '2025-12-15'),
+    (4, 4, 2, 2, '2023-02-01', '2023-12-01'),
+    (5, 5, 2, 2, '2024-02-01', '2024-12-01'),
+    (6, 6, 2, 2, '2025-02-01', '2025-12-01'),
+    (7, 7, 3, 3, '2023-01-15', '2023-12-15'),
+    (8, 8, 3, 3, '2024-01-15', '2024-12-15'),
+    (9, 9, 3, 3, '2025-01-15', '2025-12-15');
 
-    -- Program 3: Cybersecurity
-    ('Web Development Basics', 'WEB101', 7.5, 'Learn HTML, CSS, and JavaScript.', '2025-01-15', '2025-03-15', FALSE),
-    ('Frontend Frameworks', 'WEB201', 10, 'Introduction to React and Angular.', '2025-03-16', '2025-06-15', FALSE),
-    ('Backend Development', 'WEB301', 12.5, 'Learn server-side programming with Node.js.', '2025-06-16', '2025-09-15', FALSE),
+INSERT INTO Course_Code (course_code_id, course_code) VALUES
+    (1, 'PRG101'),
+    (2, 'PRG201'),
+    (3,'DAT101'),
+    (4,'AI101'),
+    (5,'AI201'),
+    (6,'AI301'),
+    (7,'CYB101'),
+    (8,'CYB201'),
+    (9,'CYB301'),
+    (10,'PHO101'),
+    (11,'CWR101'), 
+    (12,'PSP101');
 
-    -- Program 4: Cloud Computing
-    ('Introduction to AI', 'AI101', 7.5, 'Basics of artificial intelligence.', '2025-01-15', '2025-03-15', FALSE),
-    ('Machine Learning', 'AI201', 10, 'Learn machine learning algorithms.', '2025-03-16', '2025-06-15', FALSE),
-    ('Deep Learning', 'AI301', 12.5, 'Introduction to neural networks and deep learning.', '2025-06-16', '2025-09-15', FALSE),
-
-    -- Program 5: Web Development
-    ('Cybersecurity Basics', 'SEC101', 7.5, 'Learn the fundamentals of cybersecurity.', '2025-01-15', '2025-03-15', FALSE),
-    ('Network Security', 'SEC201', 10, 'Protect networks from cyber threats.', '2025-03-16', '2025-06-15', FALSE),
-    ('Ethical Hacking', 'SEC301', 12.5, 'Learn ethical hacking techniques.', '2025-06-16', '2025-09-15', FALSE),
-
-    -- Program 6: Game Development
-    ('Cloud Computing Basics', 'CLD101', 7.5, 'Introduction to cloud platforms.', '2025-01-15', '2025-03-15', FALSE),
-    ('Cloud Architecture', 'CLD201', 10, 'Learn to design cloud-based systems.', '2025-03-16', '2025-06-15', FALSE),
-    ('Cloud Security', 'CLD301', 12.5, 'Secure cloud environments.', '2025-06-16', '2025-09-15', FALSE),
-
-    -- Standalone Courses
-    ('Photography Basics', 'PHO101', 5, 'Learn the basics of photography.', '2025-01-01', '2025-02-15', TRUE),
-    ('Creative Writing', 'WRT101', 7.5, 'Develop your creative writing skills.', '2025-02-01', '2025-03-31', TRUE),
-    ('Public Speaking', 'SPK101', 5, 'Learn to speak confidently in public.', '2025-03-01', '2025-04-15', TRUE),
-    ('Personal Finance', 'FIN101', 7.5, 'Manage your personal finances effectively.', '2025-04-01', '2025-05-31', TRUE);
+INSERT INTO Course (course_id, course_name, course_code_id, credits, description, start_date, end_date, is_standalone) VALUES
+    (1, 'Programming Basics', 1, 7.5, 'Introduction to programming concepts.', '2023-01-15', '2023-03-15', FALSE),
+    (2, 'Advanced Programming', 2, 10, 'Deep dive into advanced programming techniques.', '2023-03-16', '2023-06-15', FALSE),
+    (3, 'Data Structures', 3, 12.5, 'Learn about data structures and algorithms.', '2023-06-16', '2023-09-15', FALSE),
+    (4, 'Introduction to AI', 4, 7.5, 'Learn the basics of artificial intelligence.', '2023-02-01', '2023-04-01', FALSE),
+    (5, 'Machine Learning', 5, 10, 'Understand machine learning algorithms and applications.', '2023-04-02', '2023-06-01', FALSE),
+    (6, 'Deep Learning', 6, 12.5, 'Explore deep learning techniques and neural networks.', '2023-06-02', '2023-08-01', FALSE),
+    (7, 'Cybersecurity Basics', 7, 7.5, 'Introduction to cybersecurity principles.', '2023-03-01', '2023-05-01', FALSE),
+    (8, 'Network Security', 8, 10, 'Learn about securing networks and systems.', '2023-05-02', '2023-07-01', FALSE),
+    (9, 'Ethical Hacking', 9, 12.5, 'Understand ethical hacking and penetration testing.', '2023-07-02', '2023-09-01', FALSE),
+    (10, 'Photography Basics', 10, 5, 'Learn the basics of photography.', '2023-01-01', '2023-02-15', TRUE),
+    (11, 'Creative Writing', 11, 5, 'Develop creative writing skills.', '2023-02-16', '2023-03-31', TRUE),
+    (12, 'Public Speaking', 12, 5, 'Master the art of public speaking.', '2023-04-01', '2023-05-15', TRUE);
 
 INSERT INTO Program_Course (program_id, course_id) VALUES
-    -- Program 1: Data Engineering
-    (1, 1), -- Programming Basics
-    (1, 2), -- Advanced Programming
-    (1, 3), -- Data Structures
-    
-    -- Program 2: AI Development
-    (2, 4), -- Database Fundamentals
-    (2, 5), -- Database Optimization
-    (2, 6), -- Big Data Analytics
-    
-    -- Program 3: Cybersecurity
-    (3, 7), -- Web Development Basics
-    (3, 8), -- Frontend Frameworks
-    (3, 9), -- Backend Development
-    
-    -- Program 4: Cloud Computing
-    (4, 10), -- Introduction to AI
-    (4, 11), -- Machine Learning
-    (4, 12), -- Deep Learning
-    
-    -- Program 5: Web Development
-    (5, 13), -- Cybersecurity Basics
-    (5, 14), -- Network Security
-    (5, 15), -- Ethical Hacking
-    
-    -- Program 6: Game Development
-    (6, 16), -- Cloud Computing Basics
-    (6, 17), -- Cloud Architecture
-    (6, 18); -- Cloud Security
+    (1, 1),
+    (1, 2),
+    (1, 3),
+    (2, 4),
+    (2, 5),
+    (2, 6),
+    (3, 7),
+    (3, 8),
+    (3, 9),
+    (4, 10),
+    (4, 11),
+    (4, 12),
+    ( 5, 1),
+    (5, 4),
+    (5, 7),
+    (6, 2),
+    (6, 5),
+    (6, 8),
+    (7, 3),
+    (7, 6),
+    (7, 9);
 
--- Lärare (både fasta och konsulter)
-INSERT INTO Teacher (first_name, last_name, personal_info_id, contact_info_id, street_address_id, is_active) VALUES
-    -- Fasta lärare
-    ('Anders', 'Alm', 6, 6, 1, TRUE),
-    ('Beatrice', 'Bergström', 7, 7, 2, TRUE),
-    ('Erik', 'Ekström', 8, 8, 5, TRUE),
-    ('Frida', 'Forsberg', 9, 9, 6, TRUE),
-    ('Isak', 'Isaksson', 10, 10, 9, TRUE),
-    ('Jenny', 'Johansson', 11, 11, 10, TRUE),
-    
-    -- Konsulter (som också är lärare)
-    ('Carl', 'Carlsson', 12, 12, 3, TRUE),
-    ('Diana', 'Dahl', 13, 13, 4, TRUE),
-    ('Gustav', 'Gunnarsson', 14, 14, 7, TRUE),
-    ('Hanna', 'Hedlund', 15, 15, 8, TRUE);
+INSERT INTO Teacher (teacher_id, first_name, last_name, personal_info_id, contact_info_id, street_address_id, is_active) VALUES
+    (1, 'Anders', 'Alm', 1, 1, 1, TRUE),
+    (2, 'Beatrice', 'Bergström', 2, 2, 2, TRUE),
+    (3, 'Carl', 'Carlsson', 3, 3, 3, TRUE);
 
 INSERT INTO Course_Teacher (course_id, teacher_id) VALUES
-    -- Fasta lärare undervisar kurser
-    (1, 1), -- Anders Alm
-    (2, 1),
-    (3, 2), -- Beatrice Bergström
-    (4, 2),
-    (9, 3), -- Erik Ekström
-    (10, 3),
-    (11, 4), -- Frida Forsberg
-    (12, 4),
-    (17, 5), -- Isak Isaksson
-    (18, 5),
-    (19, 6), -- Jenny Johansson
-    (20, 6),
-    
-    -- Konsulter undervisar kurser
-    (5, 7), -- Carl Carlsson
-    (6, 7),
-    (7, 8), -- Diana Dahl
-    (8, 8),
-    (13, 9), -- Gustav Gunnarsson
-    (14, 9),
-    (15, 10), -- Hanna Hedlund
-    (16, 10);
+    (1, 1),
+    (2, 2),
+    (3, 3);
 
 INSERT INTO Company (organization_number, company_name, has_f_tax, contact_info_id, street_address_id) VALUES
-    ('556123-4567', 'Tech Solutions AB', TRUE, 29, 1),
-    ('556987-6543', 'Data Experts Ltd', TRUE, 30, 2),
-    ('556321-7890', 'AI Innovators', TRUE, 31, 3),
-    ('556654-3210', 'Cloud Services Inc', TRUE, 32, 4);
+    ('556123-4567', 'Tech Solutions AB', TRUE, 1, 1),
+    ('556987-6543', 'Data Experts Ltd', TRUE, 2, 2);
 
--- Konsulter (koppling till Teacher)
-INSERT INTO Consult (organization_number, hourly_rate, full_name, is_active, teacher_id) VALUES
-    ('556123-4567', 850.00, 'Carl Carlsson', TRUE, 7),
-    ('556987-6543', 950.00, 'Diana Dahl', TRUE, 8),
-    ('556321-7890', 1200.00, 'Gustav Gunnarsson', TRUE, 9),
-    ('556654-3210', 1100.00, 'Hanna Hedlund', TRUE, 10);
+INSERT INTO Consult (consult_id, organization_number, hourly_rate, full_name, is_active) VALUES
+    (1, '556123-4567', 1200.00, 'John Doe', TRUE),
+    (2, '556987-6543', 1100.00, 'Jane Smith', TRUE);
 
 INSERT INTO Course_Consult (course_id, consult_id) VALUES
-    -- Konsult 1 kopplad till kurser
-    (5, 1),
-    (6, 1),
-    
-    -- Konsult 2 kopplad till kurser
-    (7, 2),
-    (8, 2),
-    
-    -- Konsult 3 kopplad till kurser
-    (13, 3),
-    (14, 3),
-    
-    -- Konsult 4 kopplad till kurser
-    (15, 4),
-    (16, 4);
+    (1, 1),
+    (2, 2);
 
-INSERT INTO Student (first_name, last_name, street_address_id, class_id, personal_info_id, contact_info_id) VALUES
-    -- Class 1: DE2024, omgång 1
-    ('Alice', 'Andersson', 1, 1, 16, 16),
-    ('Bob', 'Berg', 2, 1, 17, 17),
-    
-    -- Class 2: DE2024, omgång 2
-    ('Cecilia', 'Carlsson', 3, 2, 18, 18),
-    ('David', 'Dahl', 4, 2, 19, 19),
-    
-    -- Class 3: DE2024, omgång 3
-    ('Emma', 'Ek', 5, 3, 20, 20),
-    ('Fredrik', 'Fransson', 6, 3, 21, 21),
-    
-    -- Class 4: AI2024, omgång 1
-    ('Greta', 'Gustafsson', 7, 4, 22, 22),
-    ('Hugo', 'Hansson', 8, 4, 23, 23),
-    
-    -- Class 5: AI2024, omgång 2
-    ('Ida', 'Isaksson', 9, 5, 24, 24),
-    ('Johan', 'Johansson', 10, 5, 25, 25),
-    
-    -- Class 6: AI2024, omgång 3
-    ('Karin', 'Karlsson', 11, 6, 26, 26),
-    ('Lars', 'Lind', 12, 6, 27, 27),
-    
-    -- Class 7: CS2024, omgång 1
-    ('Maria', 'Magnusson', 13, 7, 28, 28),
-    ('Nils', 'Nilsson', 14, 7, 29, 29);
+INSERT INTO Student (student_id, first_name, last_name, street_address_id, class_id, personal_info_id, contact_info_id) VALUES
+    (1, 'Alice', 'Andersson', 1, 1, 1, 1),
+    (2, 'Bob', 'Bergström', 2, 2, 2, 2),
+    (3, 'Charlie', 'Carlsson', 3, 3, 3, 3),
+    (4, 'Diana', 'Dahl', 1, 4, 4, 4),
+    (5, 'Eve', 'Eriksson', 2, 5, 5, 5),
+    (6, 'Fredrik', 'Forsberg', 3, 6, 6, 6),
+    (7, 'Gustav', 'Gunnarsson', 1, 1, 7, 7),
+    (8, 'Hanna', 'Hedlund', 2, 2, 8, 8),
+    (9, 'Isak', 'Isaksson', 3, NULL, 9, 9);
 
 INSERT INTO Student_Course (student_id, course_id, enrollment_date, completion_date) VALUES
-    -- Student 1 är inskriven i flera kurser
-    (1, 1, '2025-01-15', '2025-03-15'),
-    (1, 2, '2025-03-16', '2025-06-15'),
-    (1, 3, '2025-06-16', '2025-09-15'),
-    
-    -- Student 2 är inskriven i flera kurser
-    (2, 1, '2025-01-15', '2025-03-15'),
-    (2, 2, '2025-03-16', '2025-06-15'),
-    (2, 3, '2025-06-16', '2025-09-15'),
-    
-    -- Student 3 är inskriven i flera kurser
-    (3, 1, '2025-01-15', '2025-03-15'),
-    (3, 2, '2025-03-16', '2025-06-15'),
-    (3, 3, '2025-06-16', '2025-09-15'),
-    
-    -- Student 4 är inskriven i flera kurser
-    (4, 1, '2025-01-15', '2025-03-15'),
-    (4, 2, '2025-03-16', '2025-06-15'),
-    (4, 3, '2025-06-16', '2025-09-15'),
-    
-    -- Student 5 är inskriven i flera kurser
-    (5, 1, '2025-01-15', '2025-03-15'),
-    (5, 2, '2025-03-16', '2025-06-15'),
-    (5, 3, '2025-06-16', '2025-09-15'),
-    
-    -- Student 6 är inskriven i flera kurser
-    (6, 1, '2025-01-15', '2025-03-15'),
-    (6, 2, '2025-03-16', '2025-06-15'),
-    (6, 3, '2025-06-16', '2025-09-15'),
-    
-    -- Student 7 är inskriven i flera kurser
-    (7, 4, '2025-01-15', '2025-03-15'),
-    (7, 5, '2025-03-16', '2025-06-15'),
-    (7, 6, '2025-06-16', '2025-09-15'),
-    
-    -- Student 8 är inskriven i flera kurser
-    (8, 4, '2025-01-15', '2025-03-15'),
-    (8, 5, '2025-03-16', '2025-06-15'),
-    (8, 6, '2025-06-16', '2025-09-15'),
-    
-    -- Student 9 är inskriven i flera kurser
-    (9, 4, '2025-01-15', '2025-03-15'),
-    (9, 5, '2025-03-16', '2025-06-15'),
-    (9, 6, '2025-06-16', '2025-09-15'),
-    
-    -- Student 10 är inskriven i flera kurser
-    (10, 4, '2025-01-15', '2025-03-15'),
-    (10, 5, '2025-03-16', '2025-06-15'),
-    (10, 6, '2025-06-16', '2025-09-15'),
-    
-    -- Student 11 är inskriven i flera kurser
-    (11, 4, '2025-01-15', '2025-03-15'),
-    (11, 5, '2025-03-16', '2025-06-15'),
-    (11, 6, '2025-06-16', '2025-09-15'),
-    
-    -- Student 12 är inskriven i flera kurser
-    (12, 4, '2025-01-15', '2025-03-15'),
-    (12, 5, '2025-03-16', '2025-06-15'),
-    (12, 6, '2025-06-16', '2025-09-15'),
-    
-    -- Student 13 är inskriven i flera kurser
-    (13, 7, '2025-01-15', '2025-03-15'),
-    (13, 8, '2025-03-16', '2025-06-15'),
-    (13, 9, '2025-06-16', '2025-09-15'),
-    
-    -- Student 14 är inskriven i flera kurser
-    (14, 7, '2025-01-15', '2025-03-15'),
-    (14, 8, '2025-03-16', '2025-06-15'),
-    (14, 9, '2025-06-16', '2025-09-15'),
-    
-    -- Några studenter är inskrivna i fristående kurser
-    (1, 19, '2025-01-01', '2025-02-15'), -- Photography Basics
-    (3, 20, '2025-02-01', '2025-03-31'), -- Creative Writing
-    (5, 21, '2025-03-01', '2025-04-15'), -- Public Speaking
-    (7, 22, '2025-04-01', '2025-05-31'); -- Personal Finance
+    (1, 1, '2023-01-15', '2023-03-15'),
+    (1, 2, '2023-03-16', '2023-06-15'),
+    (1, 3, '2023-06-16', '2023-09-15'),
+    (2, 1, '2023-01-15', '2023-03-15'),
+    (2, 2, '2023-03-16', '2023-06-15'),
+    (2, 3, '2023-06-16', '2023-09-15'),
+    (3, 1, '2023-01-15', '2023-03-15'),
+    (3, 2, '2023-03-16', '2023-06-15'),
+    (3, 3, '2023-06-16', '2023-09-15'),
+    (4, 4, '2023-02-01', '2023-04-01'),
+    (4, 5, '2023-04-02', '2023-06-01'),
+    (4, 6, '2023-06-02', '2023-08-01'),
+    (5, 4, '2023-02-01', '2023-04-01'),
+    (5, 5, '2023-04-02', '2023-06-01'),
+    (5, 6, '2023-06-02', '2023-08-01'),
+    (6, 4, '2023-02-01', '2023-04-01'),
+    (6, 5, '2023-04-02', '2023-06-01'),
+    (6, 6, '2023-06-02', '2023-08-01'),
+    (7, 7, '2023-03-01', '2023-05-01'),
+    (7, 8, '2023-05-02', '2023-07-01'),
+    (7, 9, '2023-07-02', '2023-09-01'),
+    (8, 7, '2023-03-01', '2023-05-01'),
+    (8, 8, '2023-05-02', '2023-07-01'),
+    (8, 9, '2023-07-02', '2023-09-01'),
+    (9, 10, '2023-01-01', '2023-02-15'),
+    (9, 11, '2023-02-16', '2023-03-31'),
+    (9, 12, '2023-04-01', '2023-05-15');

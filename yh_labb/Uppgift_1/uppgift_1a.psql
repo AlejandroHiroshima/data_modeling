@@ -2,8 +2,6 @@ CREATE SCHEMA IF NOT EXISTS yrkesco;
 
 SET search_path TO yrkesco;
 
--- Skapa tabeller i rätt ordning för att undvika problem med främmande nycklar
-
 CREATE TABLE IF NOT EXISTS Country (
     country_id SERIAL PRIMARY KEY,
     country_name VARCHAR(100) NOT NULL
@@ -80,10 +78,15 @@ CREATE TABLE IF NOT EXISTS Classes (
     end_date DATE
 );
 
+CREATE TABLE IF NOT EXISTS Course_Code (
+    course_code_id SERIAL PRIMARY KEY,
+    course_code VARCHAR(10) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS Course (
     course_id SERIAL PRIMARY KEY,
     course_name VARCHAR(100) NOT NULL,
-    course_code VARCHAR(20) NOT NULL UNIQUE,
+    course_code_id INTEGER NOT NULL REFERENCES Course_Code(course_code_id),
     credits INTEGER NOT NULL,
     description TEXT,
     start_date DATE,
@@ -127,8 +130,7 @@ CREATE TABLE IF NOT EXISTS Consult (
     organization_number VARCHAR(50) NOT NULL REFERENCES Company(organization_number),
     hourly_rate DECIMAL(10, 2) NOT NULL,
     full_name VARCHAR(100) NOT NULL,
-    is_active BOOLEAN,
-    teacher_id INTEGER REFERENCES Teacher(teacher_id)
+    is_active BOOLEAN    
 ); 
 
 CREATE TABLE IF NOT EXISTS Course_Consult (
@@ -154,3 +156,6 @@ CREATE TABLE IF NOT EXISTS Student_Course (
     completion_date DATE,
     PRIMARY KEY (student_id, course_id)
 );
+
+
+-- ALTER TABLE yrkesco.Consult DROP COLUMN teacher_id;
