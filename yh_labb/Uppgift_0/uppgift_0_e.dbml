@@ -105,12 +105,15 @@ Table Course_Teacher {
 Table Company {
   organization_number VARCHAR(50) [primary key]
   company_name VARCHAR(100) [not null]
+  has_f_tax BOOLEAN [not null]
+  street_address_id INTEGER [not null, ref: > Street_address.street_address_id]
 }
 
 Table Consult {
   consult_id INTEGER [primary key]
   organization_number VARCHAR(50) [not null, ref: > Company.organization_number]
   hourly_rate DECIMAL(10, 2) [not null]
+  full_name VARCHAR(100) [not null]
   is_active BOOLEAN
 }
 
