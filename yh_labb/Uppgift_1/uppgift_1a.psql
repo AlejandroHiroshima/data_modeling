@@ -2,6 +2,7 @@ CREATE SCHEMA IF NOT EXISTS yrkesco;
 
 SET search_path TO yrkesco;
 
+-- Skapa tabeller i rätt ordning för att undvika problem med främmande nycklar
 
 CREATE TABLE IF NOT EXISTS Country (
     country_id SERIAL PRIMARY KEY,
@@ -32,8 +33,18 @@ CREATE TABLE IF NOT EXISTS School (
     street_address_id INTEGER REFERENCES Street_address(street_address_id)
 );
 
+CREATE TABLE IF NOT EXISTS Personal_info (
+    personal_info_id SERIAL PRIMARY KEY,
+    personal_number VARCHAR(20) NOT NULL UNIQUE
+);
 
-CREATE TABLE IF NOT EXISTS Program (
+CREATE TABLE IF NOT EXISTS Contact_Info (
+    contact_info_id SERIAL PRIMARY KEY,
+    email VARCHAR(100),
+    phone_number VARCHAR(20)
+);
+
+CREATE TABLE IF NOT EXISTS Programs (
     program_id SERIAL PRIMARY KEY,
     program_name VARCHAR(100) NOT NULL,
     description TEXT
@@ -41,8 +52,18 @@ CREATE TABLE IF NOT EXISTS Program (
 
 CREATE TABLE IF NOT EXISTS School_Program (
     school_id INTEGER NOT NULL REFERENCES School(school_id),  
-    program_id INTEGER NOT NULL REFERENCES Program(program_id),
+    program_id INTEGER NOT NULL REFERENCES Programs(program_id),
     PRIMARY KEY (school_id, program_id) 
+);
+
+CREATE TABLE IF NOT EXISTS Education_manager (
+    education_manager_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    personal_info_id INTEGER REFERENCES Personal_info(personal_info_id),
+    contact_info_id INTEGER REFERENCES Contact_Info(contact_info_id),
+    street_address_id INTEGER REFERENCES Street_address(street_address_id),
+    is_active BOOLEAN 
 );
 
 CREATE TABLE IF NOT EXISTS Class_Name (
@@ -50,34 +71,19 @@ CREATE TABLE IF NOT EXISTS Class_Name (
     class_name VARCHAR(40) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Class (
+CREATE TABLE IF NOT EXISTS Classes (
     class_id SERIAL PRIMARY KEY,
     class_name_id INTEGER REFERENCES Class_Name(class_name_id),
-    program_id INTEGER REFERENCES Program(program_id),
+    program_id INTEGER REFERENCES Programs(program_id),
     education_manager_id INTEGER REFERENCES Education_manager(education_manager_id),
     start_date DATE,
     end_date DATE
 );
 
-CREATE TABLE IF NOT EXISTS Education_manager (
-    education_manager_id SERIAL PRIMARY KEY,
-    first_name VARCHAR(100),
-    last_name VARCHAR(100),
-    email VARCHAR(100),
-    personal_info_id INTEGER REFERENCES Personal_info(personal_info_id),
-    street_address_id INTEGER REFERENCES Street_address(street_address_id),
-    is_active BOOLEAN 
-);
-
-CREATE TABLE IF NOT EXISTS Personal_info (
-    personal_info_id SERIAL PRIMARY KEY,
-    personal_number VARCHAR(20) NOT NULL UNIQUE,
-    phone_number VARCHAR(20) 
-);
-
 CREATE TABLE IF NOT EXISTS Course (
     course_id SERIAL PRIMARY KEY,
     course_name VARCHAR(100) NOT NULL,
+    course_code VARCHAR(20) NOT NULL UNIQUE,
     credits INTEGER NOT NULL,
     description TEXT,
     start_date DATE,
@@ -86,7 +92,7 @@ CREATE TABLE IF NOT EXISTS Course (
 );
 
 CREATE TABLE IF NOT EXISTS Program_Course (
-    program_id INTEGER NOT NULL REFERENCES Program(program_id),
+    program_id INTEGER NOT NULL REFERENCES Programs(program_id),
     course_id INTEGER NOT NULL REFERENCES Course(course_id),
     PRIMARY KEY (program_id, course_id)
 );
@@ -95,10 +101,10 @@ CREATE TABLE IF NOT EXISTS Teacher (
     teacher_id SERIAL PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
     hire_date DATE,
     is_active BOOLEAN,
     personal_info_id INTEGER REFERENCES Personal_info(personal_info_id),
+    contact_info_id INTEGER REFERENCES Contact_Info(contact_info_id),
     street_address_id INTEGER REFERENCES Street_address(street_address_id)
 );
 
@@ -112,6 +118,7 @@ CREATE TABLE IF NOT EXISTS Company (
     organization_number VARCHAR(50) PRIMARY KEY,
     company_name VARCHAR(100) NOT NULL,
     has_f_tax BOOLEAN NOT NULL,
+    contact_info_id INTEGER REFERENCES Contact_Info(contact_info_id),
     street_address_id INTEGER NOT NULL REFERENCES Street_Address(street_address_id)
 );
 
@@ -120,7 +127,8 @@ CREATE TABLE IF NOT EXISTS Consult (
     organization_number VARCHAR(50) NOT NULL REFERENCES Company(organization_number),
     hourly_rate DECIMAL(10, 2) NOT NULL,
     full_name VARCHAR(100) NOT NULL,
-    is_active BOOLEAN
+    is_active BOOLEAN,
+    teacher_id INTEGER REFERENCES Teacher(teacher_id)
 ); 
 
 CREATE TABLE IF NOT EXISTS Course_Consult (
@@ -133,10 +141,10 @@ CREATE TABLE IF NOT EXISTS Student (
     student_id SERIAL PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL, 
-    email VARCHAR(100) NOT NULL,
     street_address_id INTEGER REFERENCES Street_address(street_address_id),
-    class_id INTEGER REFERENCES Class(class_id),
-    personal_info_id INTEGER REFERENCES Personal_info(personal_info_id)
+    class_id INTEGER REFERENCES Classes(class_id),
+    personal_info_id INTEGER REFERENCES Personal_info(personal_info_id),
+    contact_info_id INTEGER REFERENCES Contact_Info(contact_info_id)
 );
 
 CREATE TABLE IF NOT EXISTS Student_Course (
